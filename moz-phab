@@ -1685,7 +1685,9 @@ class Mercurial(Repository):
 
         super(Mercurial, self).__init__(path, dot_path)
 
-        self._hg = ["hg.exe" if IS_WINDOWS else "hg"]
+        self._hg = [os.environ["MOZPHAB_HG_COMMAND"]
+            if "MOZPHAB_HG_COMMAND" in os.environ
+            else "hg.exe" if IS_WINDOWS else "hg"]
         self.revset = None
         self.strip_nodes = []
         self.status = None
